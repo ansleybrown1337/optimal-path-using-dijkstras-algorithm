@@ -14,9 +14,9 @@ Town A requires a new source of water from River E. The terrain between the town
 
 The problem is to find the pipeline route linking river E with town A resulting in minimum cost. Treat the problem as multi-stage process using the dynamic programming (DP) concept.
 
-image1
+![](https://github.com/ansleybrown1337/optimal-path-using-dijkstras-algorithm/blob/main/images/problem1.JPG?raw=true)
 
 ## Problem 2:
 Write the LP matrix to solve for the shortest path for the network below (i.e. travel from node 1 to node 12). The numbers adjacent to the arrows are the costs (or travel times) associated with the arcs. Solve the model using. an LP solver of your choice.
 
-image2
+![](https://github.com/ansleybrown1337/optimal-path-using-dijkstras-algorithm/blob/main/images/problem2.JPG?raw=true)
