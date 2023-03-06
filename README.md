@@ -1,6 +1,6 @@
 # optimal-path-using-dijkstras-algorithm
  This python project is the result of a class assignment for [Colorado State 
- University course WR 514:  GIS and Data Analysis in Water Resources](https://www.online.colostate.edu/courses/WR/WR514.dot).  A PDF file of the original assignment is included for reference, and below the description in the README.
+ University course WR 514:  GIS and Data Analysis in Water Resources](https://www.online.colostate.edu/courses/WR/WR514.dot).  A PDF file of the original assignment is included for reference, and below the description in the README, including as solutions at the bottom.
 
  The python script uses [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
  to optimize the past of least "cost" based on an [adjacency matrix](https://people.revoledu.com/kardi/tutorial/GraphTheory/Adjacency-Matrix.html#:~:text=Adjacency%20Matrix%20of%20a%20Graph&text=To%20fill%20the%20adjacency%20matrix,this%20number%20as%20matrix%20element.&text=The%20matrix%20to%20represent%20a,way%20is%20called%20Adjacency%20matrix%20.) 
@@ -24,3 +24,17 @@ The problem is to find the pipeline route linking river E with town A resulting 
 Write the LP matrix to solve for the shortest path for the network below (i.e. travel from node 1 to node 12). The numbers adjacent to the arrows are the costs (or travel times) associated with the arcs. Solve the model using. an LP solver of your choice.
 
 ![](https://github.com/ansleybrown1337/optimal-path-using-dijkstras-algorithm/blob/main/images/problem2.JPG?raw=true)
+
+## Solution: Problem 1
+The optimal (lowest cost) path for water conveyance from River E to town A was: 
+
+E2 > D2 > C1 > B2 > A1
+
+at a grand cost of 65 units.
+
+## Solution: Problem 2
+The optimal (least distance) path for from point 1 to point 12 was: 
+
+1 > 5 > 8 > 12 
+
+at a grand distance of 12 units.
