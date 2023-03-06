@@ -1,12 +1,16 @@
 # optimal-path-using-dijkstras-algorithm
  This python project is the result of a class assignment for [Colorado State 
- University course WR 514:  GIS and Data Analysis in Water Resources](https://www.online.colostate.edu/courses/WR/WR514.dot).  
+ University course WR 514:  GIS and Data Analysis in Water Resources](https://www.online.colostate.edu/courses/WR/WR514.dot).  A PDF file of the original assignment is included for reference, and below the description in the README.
 
  The python script uses [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
  to optimize the past of least "cost" based on an [adjacency matrix](https://people.revoledu.com/kardi/tutorial/GraphTheory/Adjacency-Matrix.html#:~:text=Adjacency%20Matrix%20of%20a%20Graph&text=To%20fill%20the%20adjacency%20matrix,this%20number%20as%20matrix%20element.&text=The%20matrix%20to%20represent%20a,way%20is%20called%20Adjacency%20matrix%20.) 
  provided by the user.
 
- Code was adapted from a helpful tutorial found on [geeksforgeeks.org](https://www.geeksforgeeks.org/printing-paths-dijkstras-shortest-path-algorithm/).
+ The code was adapted from a helpful tutorial found on [geeksforgeeks.org](https://www.geeksforgeeks.org/printing-paths-dijkstras-shortest-path-algorithm/).
+
+Use the included excel file to help make adjacency matricies for any path optimization problem, and remember to adapt nodes to have a zero cost (details in script comments; tool in excel file).
+
+For any questions, please reach out to A.J. Brown (Ansley.Brown@colostate.edu).
 
  ## Problem 1:
 
