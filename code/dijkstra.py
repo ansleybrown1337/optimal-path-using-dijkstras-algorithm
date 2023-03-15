@@ -83,9 +83,9 @@ def dijkstra(adjacency_matrix, start_vertex):
         nearest_vertex = -1
         shortest_distance = sys.maxsize
         for vertex_index in range(n_vertices):
-          if not added[vertex_index] and shortest_distances[vertex_index] < shortest_distance:
-               nearest_vertex = vertex_index
-               shortest_distance = shortest_distances[vertex_index]
+            if not added[vertex_index] and shortest_distances[vertex_index] < shortest_distance:
+                nearest_vertex = vertex_index
+                shortest_distance = shortest_distances[vertex_index]
 
 		# Mark the picked vertex as
 		# processed
@@ -95,10 +95,10 @@ def dijkstra(adjacency_matrix, start_vertex):
 		# adjacent vertices of the
 		# picked vertex.
         for vertex_index in range(n_vertices):
-           edge_distance = adjacency_matrix[nearest_vertex][vertex_index]
-           if edge_distance > 0 and shortest_distance + edge_distance < shortest_distances[vertex_index]:
-            parents[vertex_index] = nearest_vertex
-            shortest_distances[vertex_index] = shortest_distance + edge_distance
+            edge_distance = adjacency_matrix[nearest_vertex][vertex_index]
+            if edge_distance > 0 and shortest_distance + edge_distance < shortest_distances[vertex_index]:
+                parents[vertex_index] = nearest_vertex
+                shortest_distances[vertex_index] = shortest_distance + edge_distance
 
     print_solution(start_vertex, shortest_distances, parents)
 
@@ -130,19 +130,7 @@ def print_path(current_vertex, parents):
 
 # Driver code
 if __name__ == '__main__':
-    '''
-    # original adjacency matrix from geeksforgeeks    
-    adjacency_matrix = [[0, 4, 0, 0, 0, 0, 0, 8, 0],
-							[4, 0, 8, 0, 0, 0, 0, 11, 0],
-							[0, 8, 0, 7, 0, 4, 0, 0, 2],
-							[0, 0, 7, 0, 9, 14, 0, 0, 0],
-							[0, 0, 0, 9, 0, 10, 0, 0, 0],
-							[0, 0, 4, 14, 10, 0, 2, 0, 0],
-							[0, 0, 0, 0, 0, 2, 0, 1, 6],
-							[8, 11, 0, 0, 0, 0, 1, 0, 7],
-							[0, 0, 2, 0, 0, 0, 6, 7, 0]]
-    '''
-    # new adjacency matrix for homework problem 1
+    # adjacency matrix for homework problem 1
     print("###### Problem 1 ######")
     print("Note that directionality does not matter for this problem")
     print("i.e., the cost from 0 to 16 = the cost of 16 to 0 for all vertices")
@@ -193,4 +181,18 @@ if __name__ == '__main__':
                                 [0,0,0,0,0,0,0,0,4,0,0,7],
                                 [0,0,0,0,0,0,0,5,0,6,7,0]]
     dijkstra(adjacency_matrix_p2, 0)
+    adjacency_matrix_midterm = [[0,1,2,0,4,0,0,0,0,0,0,0],
+                                [1,0,0,3,4,0,0,0,0,0,0,0],
+                                [2,0,0,0,0,4,0,0,5,0,0,0],
+                                [0,3,0,0,5,0,4,0,0,0,0,0],
+                                [4,4,0,5,0,3,2,5,0,0,0,0],
+                                [0,0,4,0,3,0,0,2,3,0,0,0],
+                                [0,0,0,4,2,0,0,4,0,5,0,0],
+                                [0,0,0,0,5,2,4,0,3,1,4,5],
+                                [0,0,5,0,0,3,0,3,0,0,4,0],
+                                [0,0,0,0,0,0,5,1,0,0,0,6],
+                                [0,0,0,0,0,0,0,4,4,0,0,7],
+                                [0,0,0,0,0,0,0,5,0,6,7,0]]
+
+
     
