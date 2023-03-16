@@ -20,6 +20,9 @@ AJ
 """
 
 import sys
+import numpy as np
+import pandas as pd
+import networkx as nx
 
 NO_PARENT = -1
 
@@ -102,11 +105,10 @@ def dijkstra(adjacency_matrix, start_vertex):
 
     print_solution(start_vertex, shortest_distances, parents)
 
-
-# A utility function to print
-# the constructed distances
-# array and shortest paths
 def print_solution(start_vertex, distances, parents):
+    # A utility function to print
+    # the constructed distances
+    # array and shortest paths
 	n_vertices = len(distances)
 	print("Vertex\t Distance (or Cost)\tPath")
 	
@@ -115,11 +117,10 @@ def print_solution(start_vertex, distances, parents):
 			print("\n", start_vertex, "->", vertex_index, "\t", distances[vertex_index], "\t\t", end="")
 			print_path(vertex_index, parents)
 
-
-# Function to print shortest path
-# from source to current_vertex
-# using parents array
 def print_path(current_vertex, parents):
+    # Function to print shortest path
+    # from source to current_vertex
+    # using parents array
 	# Base case : Source node has
 	# been processed
 	if current_vertex == NO_PARENT:
@@ -127,6 +128,39 @@ def print_path(current_vertex, parents):
 	print_path(parents[current_vertex], parents)
 	print(current_vertex, end=" ")
 
+# 14 March update: added a function to find max cost path
+
+def max_cost_path(dag):
+    G = nx.DiGraph(dag)
+    try:
+        path = nx.dag_longest_path(G)
+        path_length = nx.dag_longest_path_length(G)
+        print("The longest path is:\n", path)
+        print("The length of the longest path is:\n", path_length)
+
+    except nx.exception.NetworkXUnfeasible: # There's a loop!
+        print("The graph has a cycle")
+
+def ucg2dag(adj_matrix, starts):
+    """
+    Converts an undirected connected graph (i.e, adjacency matrix) to a directed
+    acyclic graph (DAG)
+    params:
+        adj_matrix: adjacency matrix of the graph (numpy array)
+        starts: set of starting vertices (dict)
+    """
+    # convert to numpy array
+    adj2 = np.array(adj_matrix, dtype=np.float32)
+    # fill diagonal with nans
+    np.fill_diagonal(adj2, np.nan)
+    # convert to dataframe
+    df = pd.DataFrame(adj2)
+    # convert to edge list
+    df = df.stack().reset_index()
+    df.rename(columns={'level_0': 'source', 'level_1': 'target', 0: 'weight'}, 
+              inplace=True)
+    return dag
+    
 
 # Driver code
 if __name__ == '__main__':
@@ -181,6 +215,7 @@ if __name__ == '__main__':
                                 [0,0,0,0,0,0,0,0,4,0,0,7],
                                 [0,0,0,0,0,0,0,5,0,6,7,0]]
     dijkstra(adjacency_matrix_p2, 0)
+    print("\n")
     adjacency_matrix_midterm = [[0,1,2,0,4,0,0,0,0,0,0,0],
                                 [1,0,0,3,4,0,0,0,0,0,0,0],
                                 [2,0,0,0,0,4,0,0,5,0,0,0],
@@ -193,6 +228,8 @@ if __name__ == '__main__':
                                 [0,0,0,0,0,0,5,1,0,0,0,6],
                                 [0,0,0,0,0,0,0,4,4,0,0,7],
                                 [0,0,0,0,0,0,0,5,0,6,7,0]]
+    dag_midterm = ucg2dag(adjacency_matrix_midterm, {0})
+    print(dag_midterm)
 
 
     
