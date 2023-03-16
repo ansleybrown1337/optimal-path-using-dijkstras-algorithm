@@ -159,6 +159,10 @@ def ucg2dag(adj_matrix, starts):
     df = df.stack().reset_index()
     df.rename(columns={'level_0': 'source', 'level_1': 'target', 0: 'weight'}, 
               inplace=True)
+    #dag = nx.from_pandas_edgelist(df, 'source', 'target', 'weight')
+    #print(dag.longest_path_length())
+    #print(dag.longest_path())
+    # https://networkx.guide/
     return dag
     
 
