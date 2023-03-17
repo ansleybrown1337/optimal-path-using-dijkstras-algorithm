@@ -22,7 +22,9 @@ AJ
 import sys
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 import networkx as nx
+from matplotlib.lines import Line2D
 
 NO_PARENT = -1
 
@@ -130,18 +132,53 @@ def print_path(current_vertex, parents):
 
 # 14 March update: added a function to find max cost path
 
-def max_cost_path(dag):
-    G = nx.DiGraph(dag)
+def max_cost_path(adj_matrix):
+    """
+    This function finds the longest path in a directed acyclic graph (DAG).
+    It uses the networkx package to create a directed graph from the adjacency
+    matrix, and then uses the dag_longest_path_length function to find the
+    longest path. If there is a cycle in the graph, it will return an error.
+    It also creates a graph visualization using networkx and matplotlib, where
+    green represents nodes selected on the longest path, and blue represents
+    nodes not selected on the longest path.
+    params:
+        adj_matrix: a square adjacency matrix
+    returns:
+        None
+    """
+    G = ucg2dag(adj_matrix)
     try:
-        path = nx.dag_longest_path(G)
-        path_length = nx.dag_longest_path_length(G)
+        path = nx.dag_longest_path(G, weight='weight')
+        path_length = nx.dag_longest_path_length(G, weight='weight')
         print("The longest path is:\n", path)
-        print("The length of the longest path is:\n", path_length)
-
+        print("The total weight of the longest path is:\n", path_length)
     except nx.exception.NetworkXUnfeasible: # There's a loop!
-        print("The graph has a cycle")
+        print("The graph has a cycle, and a longest path cannot be determined.")
+    node_colors = ["green" if n in path else "blue" for n in G.nodes()]
+    labels = {e: G.edges[e]['weight'] for e in G.edges}
+    pos = nx.spring_layout(G, k=1)
+    nx.draw_networkx(G,
+                     pos=pos,
+                     arrows=True, 
+                     with_labels=True,
+                     arrowstyle='-|>', 
+                     arrowsize=20, 
+                     node_size=800,
+                     node_color=node_colors)
+    
+    nx.draw_networkx_edge_labels(G, 
+                                 pos=pos,
+                                 edge_labels=labels)
+    legend_elements = [Line2D([0], [0], marker='o', color='w',
+                              label='Optimized Path', markerfacecolor='g',
+                              markersize=15),
+                       Line2D([0], [0], marker='o', color='w',
+                              label='Omitted Nodes', markerfacecolor='b',
+                              markersize=15)]
+    plt.legend(handles=legend_elements)
+    plt.show()
 
-def ucg2dag(adj_matrix, starts):
+def ucg2dag(adj_matrix):
     """
     Converts an undirected connected graph (i.e, adjacency matrix) to a directed
     acyclic graph (DAG)
@@ -152,18 +189,38 @@ def ucg2dag(adj_matrix, starts):
     # convert to numpy array
     adj2 = np.array(adj_matrix, dtype=np.float32)
     # fill diagonal with nans
+    adj2[adj2 == 0] = np.nan
     np.fill_diagonal(adj2, np.nan)
     # convert to dataframe
     df = pd.DataFrame(adj2)
     # convert to edge list
     df = df.stack().reset_index()
+    # rename columns for interpretation
     df.rename(columns={'level_0': 'source', 'level_1': 'target', 0: 'weight'}, 
               inplace=True)
-    #dag = nx.from_pandas_edgelist(df, 'source', 'target', 'weight')
-    #print(dag.longest_path_length())
-    #print(dag.longest_path())
-    # https://networkx.guide/
-    return dag
+    # correct node numbering for correct interpretation
+    df[['source','target']] += 1
+    # convert to directed acyclic graph (DAG)
+    dag = nx.from_pandas_edgelist(df, 'source', 'target', 'weight',
+                                  create_using=nx.Graph())
+    # remove self-loops
+    dag_dir = dag.to_directed()
+    dropped_nodes = list(set(dag_dir.nodes()) - set(dag.nodes()))
+    dropped_edges = list(set(dag_dir.edges()) - set(dag.edges()))
+    dag_dir.remove_nodes_from(n for n in dropped_nodes)
+    dag_dir.remove_edges_from(e for e in dropped_edges)
+    '''
+    #for debugging
+    print(type(dag))
+    print(dag.edges())
+    print(type(dag_dir))
+    print(dag_dir.edges())
+    print('dropped edges:')
+    print(dropped_edges)
+    print('final edges:')
+    print(dag_dir.edges())
+    '''
+    return dag_dir
     
 
 # Driver code
@@ -232,8 +289,8 @@ if __name__ == '__main__':
                                 [0,0,0,0,0,0,5,1,0,0,0,6],
                                 [0,0,0,0,0,0,0,4,4,0,0,7],
                                 [0,0,0,0,0,0,0,5,0,6,7,0]]
-    dag_midterm = ucg2dag(adjacency_matrix_midterm, {0})
-    print(dag_midterm)
+    #single_source_longest_dag_path_length(adjacency_matrix_midterm, 0)
+    max_cost_path(adjacency_matrix_midterm)
 
 
     
