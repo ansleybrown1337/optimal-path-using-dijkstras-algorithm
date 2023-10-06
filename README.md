@@ -3,7 +3,7 @@
  University course WR 514:  GIS and Data Analysis in Water Resources](https://www.online.colostate.edu/courses/WR/WR514.dot).  A PDF file of the original assignment is included for reference, and below the description in the README, including as solutions at the bottom.
 
  The python script uses [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
- to optimize the past of least "cost" based on an [adjacency matrix](https://people.revoledu.com/kardi/tutorial/GraphTheory/Adjacency-Matrix.html#:~:text=Adjacency%20Matrix%20of%20a%20Graph&text=To%20fill%20the%20adjacency%20matrix,this%20number%20as%20matrix%20element.&text=The%20matrix%20to%20represent%20a,way%20is%20called%20Adjacency%20matrix%20.) 
+ to optimize the path of least "cost" based on an [adjacency matrix](https://people.revoledu.com/kardi/tutorial/GraphTheory/Adjacency-Matrix.html#:~:text=Adjacency%20Matrix%20of%20a%20Graph&text=To%20fill%20the%20adjacency%20matrix,this%20number%20as%20matrix%20element.&text=The%20matrix%20to%20represent%20a,way%20is%20called%20Adjacency%20matrix%20.) 
  provided by the user.
 
  The code was adapted from a helpful tutorial found on [geeksforgeeks.org](https://www.geeksforgeeks.org/printing-paths-dijkstras-shortest-path-algorithm/).
